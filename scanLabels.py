@@ -4,25 +4,11 @@ import re
 import sys
 import os
 import slack
+from datetime import datetime, timedelta
 
 HOST= "https://api.github.com/"
 TOKEN=os.environ["MOZILLA_GITHUB_TOKEN"]
 headers = {'Authorization': 'token ' + TOKEN}
-
-'''
-List issues without label since 7 days ago.
-GET /repos/:owner/:repo/issues
-parameter : since = ISO 8601 
-            labels when length=0 
-Return a list of issue id
-'''
-# if labels length is zero , we add label "need triage"
-from datetime import datetime, timedelta
-
-
-'''
-Get ISO datetime for 7 days ago
-'''
 
 LABEL = "need triage"
 N = 10
@@ -49,7 +35,6 @@ def find_issues_without_label():
         print('Unable to find tags')
         print(resp.text)
 
-
 def update_issue_label(issues_without_label):
     '''
     Update issues to label "need triage" 
@@ -64,7 +49,6 @@ def update_issue_label(issues_without_label):
         else:
             print('Unable to find tags')
             print(resp.text)
-
 
 def need_triage_issues():
     '''
@@ -85,12 +69,9 @@ def need_triage_issues():
         print('Unable to find tags')
         print(resp.text)
 
-
-
 def send_slack_msg_to_notify_pm(list_of_need_triage_issue):
     '''
     Send Slack notification
-    
     '''
     count = len(list_of_need_triage_issue)
     TRIAGE_SLACK_API_TOKEN=os.environ["TRIAGE_SLACK_API_TOKEN"]
