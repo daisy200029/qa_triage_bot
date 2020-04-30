@@ -82,7 +82,7 @@ def send_slack_msg_to_notify_pm(list_of_need_triage_issue):
         client.chat_postMessage(
         channel=CHANNEL,
         link_names=1,
-        text='Please PM help triage {} issues, refers {} cc: @wendy,@mark'.format(count,"https://github.com/mozilla-tw/FirefoxLite/issues?q=label%3A%22need+triage%22+")
+        text='Please PM help triage {} issues, refers {} cc: @wendy,@mliang'.format(count,"https://github.com/mozilla-tw/FirefoxLite/issues?q=label%3A%22need+triage%22+")
         )
     else:
         client.chat_postMessage(
@@ -90,6 +90,9 @@ def send_slack_msg_to_notify_pm(list_of_need_triage_issue):
         text='great job, no tickets to triage today!'
         )
 
+'''
+python3 scanLabels.py
+'''
 issues_without_label=find_issues_without_label()
 update_issue_label(issues_without_label)
 
